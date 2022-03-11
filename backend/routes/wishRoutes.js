@@ -1,13 +1,11 @@
 const express = require("express")
 const router = express.Router()
 const {getWishes,postWishes,updateWishes,deleteWishes} = require('../controller/wishCotrollers.js')
+const {protect} = require('../middleware/authMiddleware')
 
-router.get('/',getWishes)
+router.route('/').get(getWishes,protect).post(postWishes,protect)
 
-router.post('/',postWishes)
+router.route('/:id').put(updateWishes,protect).delete(deleteWishes,protect)
 
-router.put('/:id',updateWishes)
-
-router.delete('/:id',deleteWishes)
 
 module.exports = router
